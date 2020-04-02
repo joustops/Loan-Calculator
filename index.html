@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <form action="">
+    <label for="fname"><b> Cares Act Calculator</b></label>
+    <br>
+    <br>
+    <label>Were you in business February 15, 2020?</label>
+    <br>
+    <input type="radio" name = "lab1" id="True1" value="true">
+    <label for="true">True</label>
+    <br>
+    <input type="radio" name = "lab1" id="False1" value="false">
+    <label for="false">False</label>
+    <br>
+    <br>
+    <label>Are you a seasonal business?</label>
+    <br>
+    <input type="radio" name = "lab2" id="True2" value="true" onclick="hideStandard()">
+    <label for="true" >True</label>
+    <br>
+    <input type="radio" name = "lab2" id="False2" value="false" onclick="hideSeasonal()">
+    <label for="false">False</label>
+    <br>
+    <br>
+
+    <div id="standardDIV">
+      <label for="fname">What was your payroll cost in the last 12 months? </label>
+      <br>
+      <label> (This includes salaries, wages, commissions, cash tips, payments for leave, severance, and health care benefits) </label>
+      <br>
+      <input type="text" id="standard1" required>
+      <br>
+      <br>
+      <label> How much do you spend monthly on rent? </label>
+      <br>
+      <input type="text" id="standard2" required>
+      <br>
+      <br>
+      <label> How much do you spend monthly on utilities?  </label>
+      <br>
+      <input type="text" id="standard3" required>
+      <br>
+      <br>
+      <input type="button" value="Submit" id="submit" onclick="analyzeSta()">
+    </div>
+    
+    <div id="seasonalDIV" style="visibility:hidden;margin-top: -217px;">
+      <label for="fname">What were your total payroll costs between March 01, 2019 and June 30, 2019? </label>
+      <br>
+      <label> (This includes salaries, wages, commissions, cash tips, payments for leave, severance, and health care benefits) </label>
+      <br>
+      <input type="text" id="seasonal11" required>
+      <br>
+      <br>
+      <label> What were your total payroll costs between Feb 15, 2019 and May 10, 2019? </label>
+      <br>
+      <input type="text" id="seasonal12" required>
+      <br>
+      <br>
+      <label> How much do you spend monthly on rent? </label>
+      <br>
+      <input type="text" id="seasonal2" required>
+      <br>
+      <br>
+      <label> How much do you spend monthly on utilities?  </label>
+      <br>
+      <input type="text" id="seasonal3" required>
+      <br>
+      <br>
+      <input type="button" value="Submit" id="submit2" onclick="analyzeSea()">
+    </div>
+    
+  </form> 
+
+  <script>
+  function hideStandard() {
+    document.getElementById("standardDIV").style.visibility = "hidden";
+    document.getElementById("seasonalDIV").style.visibility = "visible";
+  }
+  function hideSeasonal() {
+    document.getElementById("standardDIV").style.visibility = "visible";
+    document.getElementById("seasonalDIV").style.visibility = "hidden";
+  }
+  function analyzeSta() {
+    var st1 = document.getElementById("standard1").value;
+    var pointNum = parseFloat(st1)
+    var st2 = document.getElementById("standard2").value;
+    var pointNum2 = parseFloat(st2)
+    var st3 = document.getElementById("standard3").value;
+    var pointNum3 = parseFloat(st3)
+    loan = pointNum / 12 * 2.5
+    spend = 2 * ((pointNum / 12) + pointNum2 + pointNum3)
+    give = loan - spend
+    give2 = 0
+    give2 = Math.max(0,give)
+    if(document.getElementById("True1").checked)
+    {
+      alert('You are eligible for a loan of $' + loan.toFixed(2) + '\n' + 'Based on your spending habits, you will only have to pay back $' + give2.toFixed(2));
+    }
+    else
+    {
+      alert('You are not eligible for a loan. \nYou must have been in business as of February 15, 2020.')
+    }
+  }
+  function analyzeSea() {
+    var se11 = document.getElementById("seasonal11").value;
+    var pointNum11 = parseFloat(se11)
+    var se12 = document.getElementById("seasonal12").value;
+    var pointNum12 = parseFloat(se12)
+    var se2 = document.getElementById("seasonal2").value;
+    var pointNum2 = parseFloat(se2)
+    var se3 = document.getElementById("seasonal3").value;
+    var pointNum3 = parseFloat(se3)
+    var pointNum = Math.max(pointNum11/4, pointNum12/3)
+    loan = pointNum * 2.5
+    spend = 2 * ((pointNum) + pointNum2 + pointNum3)
+    give = loan - spend
+    give2 = Math.max(0,give)
+    if(document.getElementById("True1").checked)
+    {
+      alert('You are eligible for a loan of $' + loan.toFixed(2) + '\n' + 'Based on your spending habits, you will only have to pay back $' + give2.toFixed(2));
+    }
+    else
+    {
+      alert('You are not eligible for a loan. \nYou must have been in business as of February 15, 2020.')
+    }
+  }
+  </script>
+  
+</body>
+</html>
